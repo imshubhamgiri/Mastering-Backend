@@ -35,7 +35,11 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  const socket = io();
+  const socket = io({
+    auth: {
+      serverOffset: null // Start fresh or send last known offset
+    }
+  });
 
     const chat = document.getElementById('chat');
     const messageInput = document.getElementById('messageInput');
@@ -60,10 +64,13 @@
     });
 
     // Listen for messages from the server and display them
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', (msg, serverOffset) => {
         const messageElement = document.createElement('div');
         messageElement.textContent = msg;
         chat.appendChild(messageElement);
+        
+        // Update the offset to the latest message ID
+        socket.auth.serverOffset = serverOffset;
     });
 
     // Listen for disconnect event
