@@ -30,6 +30,7 @@
         </div>
         <input type="text" id="messageInput" value="" placeholder="Type a message...">
         <button id="sendButton">Send</button>
+        <button id="disconnectButton">Disconnect</button>
     </div>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -39,6 +40,17 @@
     const chat = document.getElementById('chat');
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
+    const toggleButton = document.getElementById('disconnectButton');
+        toggleButton.addEventListener('click', (e)=>{
+            if (socket.connected) {
+                socket.disconnect();
+                toggleButton.textContent = 'Connect';
+            } else {
+                socket.connect();
+
+                toggleButton.textContent = 'Disconnect';
+            }
+        });
     sendButton.addEventListener('click', (e)=>{
     
      if (messageInput.value) {
@@ -51,6 +63,23 @@
     socket.on('chat message', (msg) => {
         const messageElement = document.createElement('div');
         messageElement.textContent = msg;
+        chat.appendChild(messageElement);
+    });
+
+    // Listen for disconnect event
+    socket.on('connect',()=>{
+        const messageElement = document.createElement('div');
+        messageElement.textContent = 'You are connected.';
+        chat.appendChild(messageElement);
+        if (socket.recovered) {
+        console.log("Reconnected and missed events were recovered!");
+        } else {
+            console.log("New connection or recovery failed.");
+            }
+    })
+    socket.on('disconnect', () => {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = 'You have been disconnected.';
         chat.appendChild(messageElement);
     });
 
