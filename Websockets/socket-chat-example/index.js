@@ -9,7 +9,9 @@ import {Server} from 'socket.io';
 const app = express();
 const PORT = 3000;
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server,{
+  connectionStateRecovery: {}
+});
 
 app.use(express.static(path.join(process.cwd(), 'public')));
 
