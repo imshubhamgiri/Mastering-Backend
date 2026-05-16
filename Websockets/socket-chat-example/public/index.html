@@ -35,10 +35,13 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+    let counter =0;
   const socket = io({
     auth: {
       serverOffset: null // Start fresh or send last known offset
-    }
+    },
+    ackTimeout: 5000, // Set acknowledgment timeout
+    retries: 3 // Number of reconnection attempts
   });
 
     const chat = document.getElementById('chat');
@@ -58,7 +61,8 @@
     sendButton.addEventListener('click', (e)=>{
     
      if (messageInput.value) {
-      socket.emit('chat message', messageInput.value);
+      const clientOffset =  `${socket.id}-${counter++}`; // Get the last known offset  
+      socket.emit('chat message', messageInput.value, clientOffset);
       messageInput.value = '';
     }
     });

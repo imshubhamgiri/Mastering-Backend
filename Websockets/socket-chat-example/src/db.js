@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const messageSchema = new mongoose.Schema({
   content: String,
+  client_offset: { type: String, unique: true, sparse: true }
 });
 
 export const Message = mongoose.model('Message', messageSchema);
