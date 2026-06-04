@@ -1,0 +1,24 @@
+{
+    "name": "redis-local-setup",
+    "version": "1.0.0",
+    "description": "A simple project to set up Redis locally using Docker.",
+    "main": "src/index.js",
+    "private": true,
+    "type": "commonjs",
+    "scripts": {
+        "start": "tsx src/index.ts",
+        "build": "tsc",
+        "dev": "npx tsx watch src/index.ts"
+    },
+    "dependencies": {
+        "express": "^4.22.2",
+        "ioredis": "^5.4.1",
+        "mongoose": "^8.2.1"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/ioredis": "^4.28.10",
+        "@types/mongoose": "^5.11.96",
+        "typescript": "^6.0.3"
+    }
+}
