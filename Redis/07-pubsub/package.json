@@ -1,0 +1,20 @@
+{
+  "name": "07-pubsub",
+  "version": "1.0.0",   
+  "private": true,
+   
+  "scripts": {
+    "dev": "bun --watch src/index.ts"
+  },
+  
+  "dependencies": {
+    "ioredis": "^5.4.1",
+    "express": "^4.22.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "typescript": "^6.0.3"
+  }
+
+
+}
