@@ -10,3 +10,5 @@ console.log(userCache.get('user-1'));
 setTimeout(() => {
     console.log(userCache.get("user-1")); // undefined
   }, 100)
+
+
